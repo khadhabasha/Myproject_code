@@ -1,0 +1,272 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>ysUf2hwq9bdsreK-gt-9387191-2020-05-12T10:14:43.391Z::tf.xml</types1:EntryId>
+      <types1:Name>XX_EMP_PARELLEL_TASK</types1:Name>
+      <types1:MimeType>application/xml+taskflow</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>bhasha786.shaik@gmail.com</types1:CreatedBy>
+      <types1:CreationDate>2020-05-12T10:14:43Z</types1:CreationDate>
+      <types1:ModifiedBy>bhasha786.shaik@gmail.com</types1:ModifiedBy>
+      <types1:ModificationDate>2020-05-12T10:27:58Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>bhasha786.shaik@gmail.com</types1:PublishedBy>
+      <types1:PublicationDate>2020-05-12T10:28:07Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/tf.XX_EMP_PARELLEL_TASK/XX_EMP_PARELLEL_TASK.tf.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <taskflow xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                   xmlns:list="urn:activevos:spi:list:functions"
+                   displayName="XX_EMP_PARELLEL_TASK"
+                   name="XX_EMP_PARELLEL_TASK"
+                   overrideAPIName="false">
+            <appliesTo/>
+            <description/>
+            <tags/>
+            <generator>Informatica Process Designer 11</generator>
+            <tempFields>
+               <field description="" name="Data Task_SCD_type1" type="reference">
+                  <options>
+                     <option name="referenceTo">$po:XX-Employee-MCT</option>
+                  </options>
+               </field>
+               <field description="" name="Data Task_scd_type2" type="reference">
+                  <options>
+                     <option name="referenceTo">$po:XX-employee-SCD-Type2-MCT</option>
+                  </options>
+               </field>
+               <field description="" name="Data Task 1" type="reference">
+                  <options>
+                     <option name="referenceTo">$po:XX-employee-sync-task</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest>
+                  <allowedUsers>
+                     <user>SK khadharbasha@na1.dm-us.org</user>
+                  </allowedUsers>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="j3wgfeko" targetId="j3wgfekn"/>
+               </start>
+               <container id="j3wgfekn" type="parallel">
+                  <title>Parallel Paths 1</title>
+                  <flow id="j3wgfekr">
+                     <eventContainer id="ka3rchvz">
+                        <service id="j3wgfel2">
+                           <title>Data Task_SCD_type1</title>
+                           <serviceName>ICSExecuteDataTask</serviceName>
+                           <serviceGUID/>
+                           <serviceInput>
+                              <parameter name="Wait for Task to Complete" source="constant" updatable="true">true</parameter>
+                              <parameter name="Max Wait" source="constant" updatable="true">86400</parameter>
+                              <parameter name="Task Name" source="constant" updatable="true">XX_Employee_MCT</parameter>
+                              <parameter name="GUID" source="constant" updatable="true">35FrfSHHASflg5fg3uJPoK</parameter>
+                              <parameter name="Task Type" source="constant" updatable="true">MCT</parameter>
+                              <parameter name="Has Inout Parameters" source="constant" updatable="true">false</parameter>
+                              <parameter name="taskField" source="nested">
+                                 <operation source="field" to="XX-Employee-MCT">temp.Data Task_SCD_type1</operation>
+                              </parameter>
+                           </serviceInput>
+                           <serviceOutput>
+                              <operation source="field" to="temp.Data Task_SCD_type1/output/Object_Name">Object Name</operation>
+                              <operation source="field" to="temp.Data Task_SCD_type1/output/Run_Id">Run Id</operation>
+                              <operation source="field" to="temp.Data Task_SCD_type1/output/Log_Id">Log Id</operation>
+                              <operation source="field" to="temp.Data Task_SCD_type1/output/Task_Id">Task Id</operation>
+                              <operation source="field" to="temp.Data Task_SCD_type1/output/Task_Status">Task Status</operation>
+                              <operation source="field" to="temp.Data Task_SCD_type1/output/Success_Source_Rows">Success Source Rows</operation>
+                              <operation source="field" to="temp.Data Task_SCD_type1/output/Failed_Source_Rows">Failed Source Rows</operation>
+                              <operation source="field" to="temp.Data Task_SCD_type1/output/Success_Target_Rows">Success Target Rows</operation>
+                              <operation source="field" to="temp.Data Task_SCD_type1/output/Failed_Target_Rows">Failed Target Rows</operation>
+                              <operation source="field" to="temp.Data Task_SCD_type1/output/Start_Time">Start Time</operation>
+                              <operation source="field" to="temp.Data Task_SCD_type1/output/End_Time">End Time</operation>
+                              <operation source="field" to="temp.Data Task_SCD_type1/output/Error_Message">Error Message</operation>
+                           </serviceOutput>
+                        </service>
+                        <events>
+                           <catch faultField="temp.Data Task_SCD_type1/fault"
+                                  id="ka3rchvx"
+                                  interrupting="true"
+                                  name="error">
+                              <suspend/>
+                           </catch>
+                           <catch faultField="temp.Data Task_SCD_type1/fault"
+                                  id="ka3rchvy"
+                                  interrupting="true"
+                                  name="warning"/>
+                        </events>
+                     </eventContainer>
+                     <link id="j3wgfeks" targetId="j3wgfekn" type="containerLink"/>
+                  </flow>
+                  <flow id="j3wgfeku">
+                     <eventContainer id="ka3rchwl">
+                        <service id="j3wgfelc">
+                           <title>Data Task_scd_type2</title>
+                           <serviceName>ICSExecuteDataTask</serviceName>
+                           <serviceGUID/>
+                           <serviceInput>
+                              <parameter name="Wait for Task to Complete" source="constant" updatable="true">true</parameter>
+                              <parameter name="Max Wait" source="constant" updatable="true">86400</parameter>
+                              <parameter name="Task Name" source="constant" updatable="true">XX_employee_SCD_Type2_MCT</parameter>
+                              <parameter name="GUID" source="constant" updatable="true">6vXYhKQqy8UfY8Zkq5ujE2</parameter>
+                              <parameter name="Task Type" source="constant" updatable="true">MCT</parameter>
+                              <parameter name="Has Inout Parameters" source="constant" updatable="true">false</parameter>
+                              <parameter name="taskField" source="nested">
+                                 <operation source="field" to="XX-employee-SCD-Type2-MCT">temp.Data Task_scd_type2</operation>
+                              </parameter>
+                           </serviceInput>
+                           <serviceOutput>
+                              <operation source="field" to="temp.Data Task_scd_type2/output/Object_Name">Object Name</operation>
+                              <operation source="field" to="temp.Data Task_scd_type2/output/Run_Id">Run Id</operation>
+                              <operation source="field" to="temp.Data Task_scd_type2/output/Log_Id">Log Id</operation>
+                              <operation source="field" to="temp.Data Task_scd_type2/output/Task_Id">Task Id</operation>
+                              <operation source="field" to="temp.Data Task_scd_type2/output/Task_Status">Task Status</operation>
+                              <operation source="field" to="temp.Data Task_scd_type2/output/Success_Source_Rows">Success Source Rows</operation>
+                              <operation source="field" to="temp.Data Task_scd_type2/output/Failed_Source_Rows">Failed Source Rows</operation>
+                              <operation source="field" to="temp.Data Task_scd_type2/output/Success_Target_Rows">Success Target Rows</operation>
+                              <operation source="field" to="temp.Data Task_scd_type2/output/Failed_Target_Rows">Failed Target Rows</operation>
+                              <operation source="field" to="temp.Data Task_scd_type2/output/Start_Time">Start Time</operation>
+                              <operation source="field" to="temp.Data Task_scd_type2/output/End_Time">End Time</operation>
+                              <operation source="field" to="temp.Data Task_scd_type2/output/Error_Message">Error Message</operation>
+                           </serviceOutput>
+                        </service>
+                        <events>
+                           <catch faultField="temp.Data Task_scd_type2/fault"
+                                  id="ka3rchwj"
+                                  interrupting="true"
+                                  name="error">
+                              <suspend/>
+                           </catch>
+                           <catch faultField="temp.Data Task_scd_type2/fault"
+                                  id="ka3rchwk"
+                                  interrupting="true"
+                                  name="warning"/>
+                        </events>
+                     </eventContainer>
+                     <link id="j3wgfekv" targetId="j3wgfekn" type="containerLink"/>
+                  </flow>
+                  <link id="j3wgfekq" targetId="j3wgfekr" type="containerLink"/>
+                  <link id="j3wgfekt" targetId="j3wgfeku" type="containerLink"/>
+                  <link id="j3wgfeln" targetId="j3wgfelm"/>
+               </container>
+               <container id="j3wgfelm" type="exclusive">
+                  <title>Decision 1</title>
+                  <flow id="ka3rchyf">
+                     <eventContainer id="ka3rchzf">
+                        <service id="ka3rchyt">
+                           <title>Data Task 1</title>
+                           <serviceName>ICSExecuteDataTask</serviceName>
+                           <serviceGUID/>
+                           <serviceInput>
+                              <parameter name="Wait for Task to Complete" source="constant" updatable="true">true</parameter>
+                              <parameter name="Max Wait" source="constant" updatable="true">86400</parameter>
+                              <parameter name="Task Name" source="constant" updatable="true">XX_employee_sync_task</parameter>
+                              <parameter name="GUID" source="constant" updatable="true">5aczOwWqHsekOoUkcnvdKD</parameter>
+                              <parameter name="Task Type" source="constant" updatable="true">SAAS_DSS</parameter>
+                              <parameter name="Has Inout Parameters" source="constant" updatable="true">false</parameter>
+                              <parameter name="taskField" source="nested">
+                                 <operation source="field" to="XX-employee-sync-task">temp.Data Task 1</operation>
+                              </parameter>
+                           </serviceInput>
+                           <serviceOutput>
+                              <operation source="field" to="temp.Data Task 1/output/Object_Name">Object Name</operation>
+                              <operation source="field" to="temp.Data Task 1/output/Run_Id">Run Id</operation>
+                              <operation source="field" to="temp.Data Task 1/output/Log_Id">Log Id</operation>
+                              <operation source="field" to="temp.Data Task 1/output/Task_Id">Task Id</operation>
+                              <operation source="field" to="temp.Data Task 1/output/Task_Status">Task Status</operation>
+                              <operation source="field" to="temp.Data Task 1/output/Success_Source_Rows">Success Source Rows</operation>
+                              <operation source="field" to="temp.Data Task 1/output/Failed_Source_Rows">Failed Source Rows</operation>
+                              <operation source="field" to="temp.Data Task 1/output/Success_Target_Rows">Success Target Rows</operation>
+                              <operation source="field" to="temp.Data Task 1/output/Failed_Target_Rows">Failed Target Rows</operation>
+                              <operation source="field" to="temp.Data Task 1/output/Start_Time">Start Time</operation>
+                              <operation source="field" to="temp.Data Task 1/output/End_Time">End Time</operation>
+                              <operation source="field" to="temp.Data Task 1/output/Error_Message">Error Message</operation>
+                           </serviceOutput>
+                        </service>
+                        <events>
+                           <catch faultField="temp.Data Task 1/fault"
+                                  id="ka3rchzd"
+                                  interrupting="true"
+                                  name="error">
+                              <suspend/>
+                           </catch>
+                           <catch faultField="temp.Data Task 1/fault"
+                                  id="ka3rchze"
+                                  interrupting="true"
+                                  name="warning"/>
+                        </events>
+                     </eventContainer>
+                     <link id="ka3rchyg" targetId="j3wgfelm" type="containerLink"/>
+                  </flow>
+                  <flow id="ka3rchyh">
+                     <link id="ka3rchyi" targetId="j3wgfelm" type="containerLink"/>
+                  </flow>
+                  <link id="ka3rchyd" targetId="ka3rchyf" type="containerLink">
+                     <condition source="formula">
+                        <function name="set">
+                           <arg name="field">{$temp.DataTask_SCD_type1}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="ka3rchye" targetId="ka3rchyh" type="containerLink">
+                     <condition source="formula">
+                        <function name="unset">
+                           <arg name="field">{$temp.DataTask_SCD_type1}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="j3wgfelo" targetId="c"/>
+               </container>
+               <end id="c"/>
+            </flow>
+            <dependencies>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              displayName="XX-Employee-MCT"
+                              isByCopy="true"
+                              name="XX-Employee-MCT">
+                  <description/>
+                  <tags/>
+                  <detail>
+                     <field label="Output Parameters" name="output" type="reference"/>
+                     <field label="Fault" name="fault" type="reference"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              displayName="XX-employee-SCD-Type2-MCT"
+                              isByCopy="true"
+                              name="XX-employee-SCD-Type2-MCT">
+                  <description/>
+                  <tags/>
+                  <detail>
+                     <field label="Output Parameters" name="output" type="reference"/>
+                     <field label="Fault" name="fault" type="reference"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              displayName="XX-employee-sync-task"
+                              isByCopy="true"
+                              name="XX-employee-sync-task">
+                  <description/>
+                  <tags/>
+                  <detail>
+                     <field label="Output Parameters" name="output" type="reference"/>
+                     <field label="Fault" name="fault" type="reference"/>
+                  </detail>
+               </processObject>
+            </dependencies>
+         </taskflow>
+      </types1:Entry>
+      <types1:GUID>6E4BkhY6uygiLg8Ycqq78t</types1:GUID>
+      <types1:DisplayName>XX_EMP_PARELLEL_TASK</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-05-13T17:51:49.545Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
